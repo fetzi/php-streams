@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
-    <title>jopic/php-stream</title>
+    <title>jopic/php-streams</title>
     <parser>
         <target>output</target>
         <encoding>utf8</encoding>

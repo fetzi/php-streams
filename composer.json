@@ -1,6 +1,6 @@
 {
-  "name": "jopic/php-stream",
-  "description": "",
+  "name": "jopic/php-streams",
+  "description": "Library for Streaming contents of arrays/lists",
   "license": "Apache-2.0",
   "authors": [
     {

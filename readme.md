@@ -1,5 +1,5 @@
-# PHP Stream Library
-[![Build Status](https://travis-ci.org/fetzi/php-stream.svg?branch=master)](https://travis-ci.org/fetzi/php-stream)
+# PHP Streams Library
+[![Build Status](https://travis-ci.org/fetzi/php-streams.svg?branch=master)](https://travis-ci.org/fetzi/php-streams)
 
 Library for streaming contents of PHP arrays.
 
