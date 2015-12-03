@@ -7,7 +7,7 @@ Library for streaming contents of PHP arrays.
 * PHP version >= 5.3
 
 ## Installation
-TBD
+Add the following composer dependency: `"jopic/php-streams": "1.0.2"`
 
 ## Usage
 
@@ -103,13 +103,31 @@ Stream::ofList(array(1, 2, 3, 4, 5, 6))
 Example for associative array (filters for key is numeric and returns the matching elements as array
 ```php
 Stream::ofArray(array(
-            "key1" => "value1",
-            "key2" => 2,
-            "key3" => 3,
-            4 => "value 4"
-        ))
-        ->filter(function($key, $value) {
-            return is_numeric($key);
-        })
-        ->toArray(); // will return array(4 => "value 4")
+        "key1" => "value1",
+        "key2" => 2,
+        "key3" => 3,
+        4 => "value 4"
+    ))
+    ->filter(function($key, $value) {
+        return is_numeric($key);
+    })
+    ->toArray(); // will return array(4 => "value 4")
 ```
+
+## Issues or Improvements
+If you find any issues or have ideas how to improve the library don't hesitate to open an issue on the github project.
+
+## Copyright & License
+Copyright 2015 Johannes Pichler
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
