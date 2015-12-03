@@ -12,16 +12,16 @@ Therefore two initializations are possible
 * `$arrayStream = Stream::ofArray(array("key1" => "value1""));` for array with different key types
 
 ## Examples
-
-    Stream::ofList(array(1, 2, 3))
-        ->skip(0)
-        ->filter(function($item) {
-            return $item % 2 == 1;
-        })
-        ->limit(3)
-        ->each(
-            function($element) {
-                echo $element;
-            }
-        );
-
+```php
+Stream::ofList(array(1, 2, 3))
+    ->skip(0)
+    ->filter(function($item) {
+        return $item % 2 == 1;
+    })
+    ->limit(3)
+    ->each(
+        function($element) {
+            echo $element;
+        }
+    );
+```
