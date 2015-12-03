@@ -29,10 +29,6 @@
         <template name="responsive" />
     </transformations>
     <files>
-        <file>test.php</file>
-        <file>bin/*</file>
         <directory>src</directory>
-        <directory>tes??</directory>
-        <ignore>test/*</ignore>
     </files>
 </phpdoc>
