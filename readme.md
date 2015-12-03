@@ -1,6 +1,9 @@
 # PHP Stream Library
 Library for streaming contents of PHP arrays.
 
+## Requirements
+* PHP version >= 5.3
+
 ## Installation
 TBD
 
