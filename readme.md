@@ -13,15 +13,31 @@ Therefore two initializations are possible
 
 ## Examples
 
-    Stream::ofList(array(1, 2, 3))
-        ->skip(0)
-        ->filter(function($item) {
-            return $item % 2 == 1;
-        })
-        ->limit(3)
-        ->each(
-            function($element) {
-                echo $element;
-            }
-        );
+Example to skip the first element, filter for odd values, limit the result to 3 and print the matching values
+```php
+Stream::ofList(array(1, 2, 3, 4, 5, 6))
+    ->skip(1)
+    ->filter(function($item) {
+        return $item % 2 == 1;
+    })
+    ->limit(3)
+    ->each(
+        function($element) {
+            echo $element;
+        }
+    );
+```
 
+Example for associative array (filters for key is numeric and returns the matching elements as array
+```php
+Stream::ofArray(array(
+            "key1" => "value1",
+            "key2" => 2,
+            "key3" => 3,
+            4 => "value 4"
+        ))
+        ->filter(function($key, $value) {
+            return is_numeric($key);
+        })
+        ->toArray();
+```

@@ -48,3 +48,8 @@ echo "<br><br>";
 
 $result = $arrayStream->toArray();
 var_dump($result);
+echo "<br><br>";
+
+$arrayStream->reset();
+$result = $arrayStream->toArray();
+var_dump($result);

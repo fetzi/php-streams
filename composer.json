@@ -18,7 +18,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Jopic\\": "src/Jopic"
+      "Jopic\\": "src/Jopic",
+      "Jopic\\Tests\\": "tests"
     }
   },
   "scripts": {

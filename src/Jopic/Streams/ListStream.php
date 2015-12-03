@@ -20,10 +20,10 @@ class ListStream extends AbstractStream
      * @param callable $function the user defined function to be executed on matching elements
      */
     public function each($function) {
-        for($i = $this->skip; $i < $this->limit; $i = $this->stepFnc->__invoke($i)) {
+        for($i = $this->skip; $i < $this->limit; $i = $this->stepFunction->__invoke($i)) {
             $item = $this->list[$i];
 
-            if(!$this->isFilterDefined() || $this->filterFnc->__invoke($item)) {
+            if(!$this->isFilterDefined() || $this->filterFunction->__invoke($item)) {
                 $function($item);
             }
         }

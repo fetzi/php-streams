@@ -33,12 +33,12 @@ abstract class AbstractStream
     /**
      * @var callable the step function for the for loop
      */
-    protected $stepFnc;
+    protected $stepFunction;
 
     /**
      * @var callable the filter function
      */
-    protected $filterFnc;
+    protected $filterFunction;
 
     /**
      * AbstractStream constructor.
@@ -82,7 +82,7 @@ abstract class AbstractStream
      * @return $this
      */
     public function step($step) {
-        $this->stepFnc = $step;
+        $this->stepFunction = $step;
         return $this;
     }
 
@@ -93,7 +93,7 @@ abstract class AbstractStream
      * @return $this
      */
     public function filter($filter) {
-        $this->filterFnc = $filter;
+        $this->filterFunction = $filter;
         return $this;
     }
 
@@ -102,10 +102,10 @@ abstract class AbstractStream
      */
     public function reset() {
         $this->limit = count($this->list);
-        $this->stepFnc = function($i) {
+        $this->stepFunction = function($i) {
             return $i + 1;
         };
-        $this->filterFnc = null;
+        $this->filterFunction = null;
         $this->skip = 0;
     }
 
@@ -115,7 +115,7 @@ abstract class AbstractStream
      * @return bool true if filter function is defined
      */
     protected function isFilterDefined() {
-        return !empty($this->filterFnc);
+        return !empty($this->filterFunction);
     }
 
     /**

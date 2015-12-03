@@ -23,13 +23,20 @@ class ArrayStream extends AbstractStream
     public function each($function)
     {
         $i = 0;
+        $elements = 0;
         foreach($this->list as $key => $value) {
-            if(!$this->isFilterDefined() || $this->filterFnc->__invoke($key, $value)) {
-                $function($key, $value);
+            if(!$this->isFilterDefined() || $this->filterFunction->__invoke($key, $value)) {
+                if($i < $this->skip) {
+                    $i++;
+                    continue;
+                }
 
+                $function($key, $value);
+                $i++;
+                $elements++;
             }
 
-            if($i == $this->limit) {
+            if($elements == $this->limit) {
                 break;
             }
         }
