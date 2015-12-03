@@ -1,4 +1,6 @@
 # PHP Stream Library
+[![Build Status](https://travis-ci.org/fetzi/php-stream.svg?branch=master)](https://travis-ci.org/fetzi/php-stream)
+
 Library for streaming contents of PHP arrays.
 
 ## Requirements
