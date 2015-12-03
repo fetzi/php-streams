@@ -131,4 +131,12 @@ abstract class AbstractStream
      * @return mixed array of all matching elements
      */
     public abstract function toArray();
+
+    /**
+     * method for collecting and joining all matching elements
+     *
+     * @param $seperator string the seperator used for streaming
+     * @return string the resulting joined string
+     */
+    public abstract function collect($seperator);
 }

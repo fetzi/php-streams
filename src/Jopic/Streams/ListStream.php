@@ -43,4 +43,21 @@ class ListStream extends AbstractStream
 
         return $array;
     }
+
+    /**
+     * method for collecting and joining all matching elements
+     *
+     * @param $seperator string the seperator used for streaming
+     * @return string the resulting joined string
+     */
+    public function collect($seperator)
+    {
+        $joined = "";
+
+        $this->each(function($value) use(&$joined, $seperator) {
+            $joined .= (($joined != "") ? $seperator : "") . $value;
+        });
+
+        return $joined;
+    }
 }

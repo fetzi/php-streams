@@ -7,6 +7,7 @@
  */
 
 namespace Jopic\Streams;
+use Zend\Cache\Exception\BadMethodCallException;
 
 
 /**
@@ -55,5 +56,30 @@ class ArrayStream extends AbstractStream
         });
 
         return $array;
+    }
+
+    /**
+     * NOT IMPLEMENTED
+     *
+     * @param $step callable
+     * @return null
+     * @throws BadMethodCallException in all cases because step is not defined for associative arrays
+     */
+    public function step($step)
+    {
+        throw new \BadMethodCallException('step method is not available for ArrayStreams!');
+    }
+
+
+    /**
+     * NOT IMPLEMENTED
+     *
+     * @param $seperator string
+     * @return nothing
+     * @throws BadMethodCallException in all cases because collect is not defined for associative arrays
+     */
+    public function collect($seperator)
+    {
+        throw new \BadMethodCallException('collect method is not available for ArrayStreams!');
     }
 }
