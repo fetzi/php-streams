@@ -15,7 +15,7 @@ class ArrayStreamTest extends PHPUnit_Framework_TestCase
     public function setUp() {
         $this->stream = \Jopic\Stream::ofArray(array(
             "key1" => "value1",
-            "key2" => 2,
+            "key2" => "value2",
             "key3" => 3,
             4 => "value 4"
         ));
@@ -48,6 +48,6 @@ class ArrayStreamTest extends PHPUnit_Framework_TestCase
 
         $result = $this->stream->toArray();
         $this->assertEquals(2, count($result));
-        $this->assertEquals("key2", array_keys($result)[0]);
+        $this->assertEquals("value2", reset($result));
     }
 }
