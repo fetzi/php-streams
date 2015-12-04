@@ -97,7 +97,7 @@ Stream::ofList(array(1, 2, 3, 4, 5, 6))
         return $item % 2 == 1;
     })
     ->limit(3)
-    ->collect(', ') // will return "1, 3, 5"
+    ->collect(', ') // will return "3, 5"
 ```
 
 Example for associative array (filters for key is numeric and returns the matching elements as array
