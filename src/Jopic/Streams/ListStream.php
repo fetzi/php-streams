@@ -24,6 +24,10 @@ class ListStream extends AbstractStream
             $item = $this->list[$i];
 
             if(!$this->isFilterDefined() || $this->filterFunction->__invoke($item)) {
+                if($this->isMapDefined()) {
+                    $item = $this->mapFunction->__invoke($item);
+                }
+
                 $function($item);
             }
         }

@@ -15,6 +15,9 @@ namespace Jopic\Streams;
  */
 abstract class AbstractStream
 {
+    const TYPE_MIXED = 0;
+    const TYPE_NUMERIC = 1;
+    const TYPE_OTHER = 2;
     /**
      * @var array the actual php array
      */
@@ -41,6 +44,16 @@ abstract class AbstractStream
     protected $filterFunction;
 
     /**
+     * @var callable the map function
+     */
+    protected $mapFunction;
+
+    /**
+     * @var int constant for defining the data type over the map
+     */
+    protected $valueDatatype = self::TYPE_OTHER;
+
+    /**
      * AbstractStream constructor.
      *
      * @param $list array the php array
@@ -48,6 +61,8 @@ abstract class AbstractStream
     public function __construct($list) {
         $this->list = $list;
         $this->reset();
+
+        $this->determineValueDatatype();
     }
 
     /**
@@ -110,12 +125,141 @@ abstract class AbstractStream
     }
 
     /**
+     * method for defining the map function used for the iteration and aggregation functions
+     *
+     * @param $function callable the map function object
+     * @return $this
+     */
+    public function map($function) {
+        $this->mapFunction = $function;
+        return $this;
+    }
+
+    /**
+     * method for calculating the sum of all elements. if value is numeric no map function is required
+     *
+     * @return int the sum of all elements
+     */
+    public function sum() {
+        $sum = 0;
+
+        if($this->valueDatatype != self::TYPE_NUMERIC && !$this->isMapDefined()) {
+            throw new \BadMethodCallException('the map function needs to be defined for sum function');
+        }
+
+        $this->each(function($p1, $p2 = null) use(&$sum) {
+            $sum += is_null($p2) ? $p1 : $p2;
+        });
+
+        return $sum;
+    }
+
+    /**
+     * method for calculating the min value of all elements
+     *
+     * @return int the minimum value of all elements
+     */
+    public function min() {
+        $min = PHP_INT_MAX;
+
+        if($this->valueDatatype != self::TYPE_NUMERIC && !$this->isMapDefined()) {
+            throw new \BadMethodCallException('the map function needs to be defined for min function');
+        }
+
+        $this->each(function($p1, $p2 = null) use(&$min) {
+            $value = is_null($p2) ? $p1 : $p2;
+            $min = $value < $min ? $value : $min;
+        });
+
+        return $min;
+    }
+
+    /**
+     * method for calculating the max value of all elements
+     *
+     * @return int the maximum value of all elements
+     */
+    public function max() {
+        $max = PHP_INT_MAX * -1;
+
+        if($this->valueDatatype != self::TYPE_NUMERIC && !$this->isMapDefined()) {
+            throw new \BadMethodCallException('the map function needs to be defined for max function');
+        }
+
+        $this->each(function($p1, $p2 = null) use(&$max) {
+            $value = is_null($p2) ? $p1 : $p2;
+            $max = $value > $max ? $value : $max;
+        });
+
+        return $max;
+    }
+
+    /**
+     * method for calculating the average value over all elements
+     *
+     * @return float the average value of all elements
+     */
+    public function avg() {
+        $itemList = array();
+
+        if($this->valueDatatype != self::TYPE_NUMERIC && !$this->isMapDefined()) {
+            throw new \BadMethodCallException('the map function needs to be defined for max function');
+        }
+
+        $this->each(function($p1, $p2 = null) use(&$itemList) {
+            $value = is_null($p2) ? $p1 : $p2;
+            $itemList[] = $value;
+        });
+
+        $avg = array_sum($itemList) / count($itemList);
+        return $avg;
+    }
+
+    /**
      * method for checking if a filter function was specified
      *
      * @return bool true if filter function is defined
      */
     protected function isFilterDefined() {
         return !empty($this->filterFunction);
+    }
+
+    /**
+     * method for checking if the map function was specified
+     *
+     * @return bool true if map function is defined
+     */
+    protected function isMapDefined() {
+        return !empty($this->mapFunction);
+    }
+
+    /**
+     * method for determining the data type over all values in array
+     */
+    protected function determineValueDatatype() {
+        if(empty($this->list)) {
+            return;
+        }
+
+        $dataType = gettype(reset($this->list));
+
+        foreach($this->list as $key => $value) {
+            if(strcmp($dataType, gettype($value)) != 0) {
+                $this->valueDatatype = self::TYPE_MIXED;
+                return;
+            }
+        }
+
+        switch($dataType) {
+            case "integer":
+            case "double":
+                $this->valueDatatype = self::TYPE_NUMERIC;
+                break;
+            default:
+                $this->valueDatatype = self::TYPE_OTHER;
+                break;
+        }
+
     }
 
     /**
@@ -139,4 +283,5 @@ abstract class AbstractStream
      * @return string the resulting joined string
      */
     public abstract function collect($seperator);
+
 }

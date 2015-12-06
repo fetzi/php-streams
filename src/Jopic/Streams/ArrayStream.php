@@ -32,7 +32,13 @@ class ArrayStream extends AbstractStream
                     continue;
                 }
 
-                $function($key, $value);
+                if($this->isMapDefined()) {
+                    $function($key, $this->mapFunction->__invoke($key, $value));
+                }
+                else {
+                    $function($key, $value);
+                }
+
                 $i++;
                 $elements++;
             }

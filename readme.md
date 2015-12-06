@@ -50,6 +50,15 @@ Stream::ofList(array(1, 2, 3, 4, 5))
     ->filter(function($item) { return $item % 2 == 0; }); // will filter the elements (2, 4)
 ```
 
+### map
+the method allows you to apply a map function on the stream elements
+
+```php
+Stream::ofList(array(1, 2, 3))
+    ->map(function($item) { return $item + 1; })
+    ->toArray(); // will return the array(2, 3, 4)
+```
+
 ### reset
 the method resets all actions done with `limit`, `skip`, `step` and `filter`
 
@@ -85,6 +94,42 @@ the method collects all matching elements into a string seperated by the give se
 ```php
 Stream::ofList(array(1, 2, 3))
     ->collect(','); // will return "1,2,3"
+```
+
+### sum
+the method sums up all matching elements.
+This functionality is available either when all values within the array are of the same numeric datatype or if a `map` function is defined.
+
+```php
+Stream::ofList(array(1, 2, 3))
+    ->sum(); // will return 6
+```
+
+### min
+the method returns the minimum value of all matching elements. 
+This functionality is available either when all values within the array are of the same numeric datatype or if a `map` function is defined.
+
+```php
+Stream::ofList(array(1, 2, 3))
+    ->min(); // will return 1
+```
+
+### max
+the method returns the maximum value of all matching elements. 
+This functionality is available either when all values within the array are of the same numeric datatype or if a `map` function is defined.
+
+```php
+Stream::ofList(array(1, 2, 3))
+    ->max(); // will return 3
+```
+
+### avg
+the method returns the average value of all matching elements.
+This functionality is available either when all values within the array are of the same numeric datatype or if a `map` function is defined.
+
+```php
+Stream::ofList(array(1, 2, 3, 4))
+    ->avg(); // will return 2.5
 ```
 
 ## Examples
