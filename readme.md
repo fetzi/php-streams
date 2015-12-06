@@ -7,7 +7,7 @@ Library for streaming contents of PHP arrays.
 * PHP version >= 5.3
 
 ## Installation
-Add the following composer dependency: `"jopic/php-streams": "1.0.2"`
+Add the following composer dependency: `"jopic/php-streams": "1.0.3"`
 
 ## Usage
 
